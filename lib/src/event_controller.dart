@@ -63,8 +63,7 @@ class EventController<T> extends ChangeNotifier {
   }
 
   void _addEvent(CalendarEventData<T> event) {
-    assert(event.endDate.difference(event.date).inDays >= 0,
-        'The end date must be greater or equal to the start date');
+    assert(event.endDate.difference(event.date).inDays >= 0, 'The end date must be greater or equal to the start date');
 
     if (event.endDate.difference(event.date).inDays > 0) {
       _rangingEventList.add(event);
@@ -104,8 +103,7 @@ class EventController<T> extends ChangeNotifier {
             final calendarEvents = monthEvents[j]._events;
 
             for (var k = 0; k < calendarEvents.length; k++) {
-              if (calendarEvents[k].date.day == date.day)
-                events.add(calendarEvents[k]);
+              if (calendarEvents[k].date.day == date.day) events.add(calendarEvents[k]);
             }
           }
         }
@@ -114,16 +112,12 @@ class EventController<T> extends ChangeNotifier {
 
     final daysFromRange = <DateTime>[];
     for (final rangingEvent in _rangingEventList) {
-      for (var i = 0;
-          i <= rangingEvent.endDate.difference(rangingEvent.date).inDays;
-          i++) {
+      for (var i = 0; i <= rangingEvent.endDate.difference(rangingEvent.date).inDays; i++) {
         daysFromRange.add(rangingEvent.date.add(Duration(days: i)));
       }
       if (rangingEvent.date.isBefore(rangingEvent.endDate)) {
         for (final eventDay in daysFromRange) {
-          if (eventDay.year == date.year &&
-              eventDay.month == date.month &&
-              eventDay.day == date.day) {
+          if (eventDay.year == date.year && eventDay.month == date.month && eventDay.day == date.day) {
             events.add(rangingEvent);
           }
         }
@@ -201,10 +195,15 @@ class _MonthEvent<T> {
   }
 
   void removeEvent(CalendarEventData<T> event) {
+    final _auxEvent = List<CalendarEventData<T>>.from(_events);
     for (final e in _events) {
       if (e == event) {
-        _events.remove(e);
+        _auxEvent.remove(e);
       }
     }
+
+    _events
+      ..clear()
+      ..addAll(_auxEvent);
   }
 }
