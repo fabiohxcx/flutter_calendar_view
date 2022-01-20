@@ -122,8 +122,7 @@ class FilledCell<T> extends StatelessWidget {
           ),
           CircleAvatar(
             radius: highlightRadius,
-            backgroundColor:
-                shouldHighlight ? highlightColor : Colors.transparent,
+            backgroundColor: shouldHighlight ? highlightColor : Colors.transparent,
             child: Text(
               "${date.day}",
               style: TextStyle(
@@ -149,15 +148,13 @@ class FilledCell<T> extends StatelessWidget {
                     children: List.generate(
                       events.length,
                       (index) => GestureDetector(
-                        onTap: () =>
-                            onTileTap?.call(events[index], events[index].date),
+                        onTap: () => onTileTap?.call(events[index], events[index].date),
                         child: Container(
                           decoration: BoxDecoration(
                             color: events[index].color,
                             borderRadius: BorderRadius.circular(4.0),
                           ),
-                          margin: EdgeInsets.symmetric(
-                              vertical: 2.0, horizontal: 3.0),
+                          margin: EdgeInsets.symmetric(vertical: 2.0, horizontal: 3.0),
                           padding: const EdgeInsets.all(2.0),
                           alignment: Alignment.center,
                           child: Row(
@@ -209,7 +206,7 @@ class MonthPageHeader extends CalendarPageHeader {
           dateStringBuilder: MonthPageHeader._monthStringBuilder,
         );
   static String _monthStringBuilder(DateTime date, {DateTime? secondaryDate}) =>
-      "${date.month} - ${date.year}";
+      "${date.month.toString().padLeft(2, '0')}/${date.year}";
 }
 
 class WeekDayTile extends StatelessWidget {

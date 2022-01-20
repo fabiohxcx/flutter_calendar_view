@@ -3,7 +3,6 @@
 // that can be found in the LICENSE file.
 
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 
 import 'common_components.dart';
 
@@ -25,8 +24,9 @@ class WeekPageHeader extends CalendarPageHeader {
           onTitleTapped: onTitleTapped,
           dateStringBuilder: WeekPageHeader._weekStringBuilder,
         );
+
   static String _weekStringBuilder(DateTime date, {DateTime? secondaryDate}) =>
-      "${date.day} / ${date.month} / ${date.year} to "
+      "${date.day} / ${date.month.toString().padLeft(2, '0')} / ${date.year} - "
       "${secondaryDate != null ? "${secondaryDate.day} / "
-          "${secondaryDate.month} / ${secondaryDate.year}" : ""}";
+          "${secondaryDate.month.toString().padLeft(2, '0')} / ${secondaryDate.year}" : ""}";
 }

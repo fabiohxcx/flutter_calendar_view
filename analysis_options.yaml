@@ -10,7 +10,7 @@ analyzer:
 
 linter:
   rules:
-    lines_longer_than_80_chars: true
+    lines_longer_than_80_chars: false
     avoid_print: true
     always_declare_return_types: true
     avoid_equals_and_hash_code_on_mutable_classes: true

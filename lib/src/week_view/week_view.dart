@@ -2,7 +2,6 @@
 // Use of this source code is governed by a MIT-style license
 // that can be found in the LICENSE file.
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../calendar_constants.dart';
@@ -183,8 +182,7 @@ class WeekViewState<T> extends State<WeekView<T>> {
     _eventArranger = widget.eventArranger ?? SideEventArranger<T>();
     _timeLineBuilder = widget.timeLineBuilder ?? _defaultTimeLineBuilder;
     _eventTileBuilder = widget.eventTileBuilder ?? _defaultEventTileBuilder;
-    _weekHeaderBuilder =
-        widget.weekPageHeaderBuilder ?? _defaultWeekPageHeaderBuilder;
+    _weekHeaderBuilder = widget.weekPageHeaderBuilder ?? _defaultWeekPageHeaderBuilder;
     _weekDayBuilder = widget.weekDayBuilder ?? _defaultWeekDayBuilder;
   }
 
@@ -193,8 +191,7 @@ class WeekViewState<T> extends State<WeekView<T>> {
     super.didChangeDependencies();
 
     if (!_controllerAdded) {
-      _controller = widget.controller ??
-          CalendarControllerProvider.of<T>(context).controller;
+      _controller = widget.controller ?? CalendarControllerProvider.of<T>(context).controller;
       _controllerAdded = true;
 
       // Reloads the view if there is any change in controller or user
@@ -226,11 +223,9 @@ class WeekViewState<T> extends State<WeekView<T>> {
           offset: 5,
         );
 
-    assert(_hourIndicatorSettings.height < _hourHeight,
-        "hourIndicator height must be less than minuteHeight * 60");
+    assert(_hourIndicatorSettings.height < _hourHeight, "hourIndicator height must be less than minuteHeight * 60");
 
-    _weekTitleWidth =
-        (_width - _timeLineWidth - _hourIndicatorSettings.offset) / _weekDays;
+    _weekTitleWidth = (_width - _timeLineWidth - _hourIndicatorSettings.offset) / _weekDays;
   }
 
   @override
@@ -263,13 +258,10 @@ class WeekViewState<T> extends State<WeekView<T>> {
                     controller: _pageController,
                     onPageChanged: _onPageChange,
                     itemBuilder: (_, index) {
-                      final dates = _minDate
-                          .add(Duration(days: (index - 1) * _weekDays))
-                          .datesOfWeek();
+                      final dates = _minDate.add(Duration(days: (index - 1) * _weekDays)).datesOfWeek();
 
                       return InternalWeekViewPage<T>(
-                        key: ValueKey(
-                            _hourHeight.toString() + dates[0].toString()),
+                        key: ValueKey(_hourHeight.toString() + dates[0].toString()),
                         height: _height,
                         width: _width,
                         weekTitleWidth: _weekTitleWidth,
@@ -282,8 +274,7 @@ class WeekViewState<T> extends State<WeekView<T>> {
                         heightPerMinute: widget.heightPerMinute,
                         hourIndicatorSettings: _hourIndicatorSettings,
                         dates: dates,
-                        showLiveLine: widget.showLiveTimeLineInAllDays ||
-                            _showLiveTimeIndicator(dates),
+                        showLiveLine: widget.showLiveTimeLineInAllDays || _showLiveTimeIndicator(dates),
                         timeLineOffset: _timeLineOffset,
                         timeLineWidth: _timeLineWidth,
                         verticalLineOffset: 0,
@@ -352,11 +343,7 @@ class WeekViewState<T> extends State<WeekView<T>> {
   /// Default timeline builder. This builder will be used if
   /// [widget.eventTileBuilder] is null
   Widget _defaultEventTileBuilder<T>(
-      DateTime date,
-      List<CalendarEventData<T>> events,
-      Rect boundary,
-      DateTime startDuration,
-      DateTime endDuration) {
+      DateTime date, List<CalendarEventData<T>> events, Rect boundary, DateTime startDuration, DateTime endDuration) {
     if (events.isNotEmpty)
       return RoundedEventTile(
         borderRadius: BorderRadius.circular(6.0),
@@ -445,11 +432,9 @@ class WeekViewState<T> extends State<WeekView<T>> {
   /// Arguments [duration] and [curve] will override default values provided
   /// as [DayView.pageTransitionDuration] and [DayView.pageTransitionCurve]
   /// respectively.
-  Future<void> animateToPage(int page,
-      {Duration? duration, Curve? curve}) async {
+  Future<void> animateToPage(int page, {Duration? duration, Curve? curve}) async {
     await _pageController.animateToPage(page,
-        duration: duration ?? widget.pageTransitionDuration,
-        curve: curve ?? widget.pageTransitionCurve);
+        duration: duration ?? widget.pageTransitionDuration, curve: curve ?? widget.pageTransitionCurve);
   }
 
   /// Returns current page number.
@@ -468,8 +453,7 @@ class WeekViewState<T> extends State<WeekView<T>> {
   /// Arguments [duration] and [curve] will override default values provided
   /// as [WeekView.pageTransitionDuration] and [WeekView.pageTransitionCurve]
   /// respectively.
-  Future<void> animateToWeek(DateTime week,
-      {Duration? duration, Curve? curve}) async {
+  Future<void> animateToWeek(DateTime week, {Duration? duration, Curve? curve}) async {
     if (week.isBefore(_minDate) || week.isAfter(_maxDate)) {
       throw "Invalid date selected.";
     }
@@ -481,11 +465,9 @@ class WeekViewState<T> extends State<WeekView<T>> {
   }
 
   /// Returns the current visible date in week view.
-  DateTime get currentDate => DateTime(
-      _currentStartDate.year, _currentStartDate.month, _currentStartDate.day);
+  DateTime get currentDate => DateTime(_currentStartDate.year, _currentStartDate.month, _currentStartDate.day);
 
   /// check if any dates contains current date or not.
   /// Returns true if it does else false.
-  bool _showLiveTimeIndicator(List<DateTime> dates) =>
-      dates.any((date) => date.compareWithoutTime(DateTime.now()));
+  bool _showLiveTimeIndicator(List<DateTime> dates) => dates.any((date) => date.compareWithoutTime(DateTime.now()));
 }

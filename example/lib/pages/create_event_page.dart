@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../app_colors.dart';
@@ -8,8 +7,7 @@ import '../widgets/add_event_widget.dart';
 class CreateEventPage extends StatefulWidget {
   final bool withDuration;
 
-  const CreateEventPage({Key? key, this.withDuration = false})
-      : super(key: key);
+  const CreateEventPage({Key? key, this.withDuration = false}) : super(key: key);
 
   @override
   _CreateEventPageState createState() => _CreateEventPageState();
