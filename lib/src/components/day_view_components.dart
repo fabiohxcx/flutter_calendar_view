@@ -133,7 +133,7 @@ class DayPageHeader extends CalendarPageHeader {
           dateStringBuilder: DayPageHeader._dayStringBuilder,
         );
   static String _dayStringBuilder(DateTime date, {DateTime? secondaryDate}) =>
-      "${date.day} - ${date.month} - ${date.year}";
+      "${date.day}/${date.month.toString().padLeft(2, '0')}${date.year}";
 }
 
 class DefaultTimeLineMark extends StatelessWidget {
